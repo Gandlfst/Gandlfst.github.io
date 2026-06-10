@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用场景 - SEED 互联网仿真系统2</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/cases.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🌐</div>
+                <div><strong>SEED Internet Emulator</strong><span>Research & Education Platform</span></div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="why.html">为什么需要</a>
+                <a href="how.html">工作原理</a>
+                <a href="capabilities.html">核心能力</a>
+                <a href="cases.html" class="active-link">应用场景</a>
+            </nav>
+            <div class="nav-right">
+                <div class="nav-lab-logo"><img src="images/zju_lab_logo.png" alt="浙江大学区块链与数据安全全国重点实验室"></div>
+                <a class="btn btn-dark" href="https://github.com/seed-labs/seed-emulator" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <div class="eyebrow">Use Cases</div>
+                <h2>面向教学、科研和展示的统一平台</h2>
+                <p>同一个仿真框架可以服务不同对象：教师可以设计实验，学生可以动手观察，研究人员可以验证方案，团队也可以用它做可视化演示。</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container case-panel reveal">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="education">🎓 教学实验</button>
+                    <button class="tab-btn" data-tab="research">🧪 科研验证</button>
+                    <button class="tab-btn" data-tab="demo">▶ 演示展示</button>
+                </div>
+                <div class="scenario active" id="education">
+                    <div class="scenario-main">
+                        <span class="big-icon">🎓</span>
+                        <h3>把复杂互联网机制变成可操作实验</h3>
+                        <p>学生可以在一台机器上观察自治系统、BGP 路由、DNS 解析、攻击传播与防御响应，不必依赖真实互联网环境。</p>
+                    </div>
+                    <div class="point-grid">
+                        <div class="point"><span>⚡</span>BGP prefix hijacking</div>
+                        <div class="point"><span>⚡</span>DNS Infrastructure Lab</div>
+                        <div class="point"><span>⚡</span>Morris Worm Attack Lab</div>
+                        <div class="point"><span>⚡</span>Blockchain labs</div>
+                    </div>
+                </div>
+                <div class="scenario" id="research">
+                    <div class="scenario-main">
+                        <span class="big-icon">🧪</span>
+                        <h3>在可控环境中验证网络安全和分布式系统想法</h3>
+                        <p>研究人员可以构造接近真实互联网结构的实验场景，复现攻击、评估协议、测试大规模系统行为。</p>
+                    </div>
+                    <div class="point-grid">
+                        <div class="point"><span>⚡</span>真实 AS 关系数据</div>
+                        <div class="point"><span>⚡</span>PeeringDB 数据</div>
+                        <div class="point"><span>⚡</span>大规模路由节点</div>
+                        <div class="point"><span>⚡</span>Kubernetes 多机扩展</div>
+                    </div>
+                </div>
+                <div class="scenario" id="demo">
+                    <div class="scenario-main">
+                        <span class="big-icon">▶</span>
+                        <h3>用可视化方式展示互联网事件发生过程</h3>
+                        <p>通过 Internet Map 和录播视频展示数据包流向、攻击路径和系统行为，适合课程展示、项目汇报和专家演示。</p>
+                    </div>
+                    <div class="point-grid">
+                        <div class="point"><span>⚡</span>Packet 流向</div>
+                        <div class="point"><span>⚡</span>拓扑可视化</div>
+                        <div class="point"><span>⚡</span>攻击重现</div>
+                        <div class="point"><span>⚡</span>视频化演示</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container cta-box reveal">
+                <div>
+                    <div class="eyebrow" style="color:#e0f2fe;">Get Started</div>
+                    <h2>把网络安全实验搬进自己的“影子互联网”</h2>
+                    <p>适合课程实验、科研验证、攻防展示和复杂系统教学。</p>
+                </div>
+                <div class="cta-actions">
+                    <a class="cta-link" href="https://seedsecuritylabs.org/emulator/" target="_blank">官方资源与实验 <span>↗</span></a>
+                    <a class="cta-link dark" href="https://github.com/seed-labs/seed-emulator" target="_blank">查看源代码 <span>↗</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-row">
+            <div>SEED Internet Emulator · 浙江大学杜文亮团队</div>
+            <div>面向网络安全教育、科研验证与互联网级实验展示</div>
+        </div>
+    </footer>
+
+    <script>
+        // 标签切换
+        const tabButtons = document.querySelectorAll(".tab-btn");
+        const scenarios = document.querySelectorAll(".scenario");
+        tabButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const target = button.dataset.tab;
+                tabButtons.forEach((btn) => btn.classList.remove("active"));
+                scenarios.forEach((scenario) => scenario.classList.remove("active"));
+                button.classList.add("active");
+                document.getElementById(target).classList.add("active");
+            });
+        });
+
+        // 滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>

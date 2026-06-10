@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作原理 - SEED 互联网仿真系统</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/how.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🌐</div>
+                <div><strong>SEED Internet Emulator</strong><span>Research & Education Platform</span></div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="why.html">为什么需要</a>
+                <a href="how.html" class="active-link">工作原理</a>
+                <a href="capabilities.html">核心能力</a>
+                <a href="cases.html">应用场景</a>
+            </nav>
+            <div class="nav-right">
+                <div class="nav-lab-logo"><img src="images/zju_lab_logo.png" alt="浙江大学区块链与数据安全全国重点实验室"></div>
+                <a class="btn btn-light-outline" href="https://github.com/seed-labs/seed-emulator" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <div class="eyebrow">How It Works</div>
+                <h2>从 Python 描述到可运行的互联网</h2>
+                <p>SEED Emulator 将“实验组合”与“底层运行”分离：用户负责用组件库描述互联网，编译器负责生成容器文件，再由 Docker 或 Kubernetes 承载运行。</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container flow">
+                <div class="flow-card reveal">
+                    <div class="feature-icon">💻</div>
+                    <h3>1. 编程描述</h3>
+                    <p>使用 Python 创建自治系统、网络、主机、路由器、IXP、BGP 对等关系和服务组件。</p>
+                </div>
+                <div class="flow-card reveal">
+                    <div class="feature-icon">🔗</div>
+                    <h3>2. 分层融合</h3>
+                    <p>基础拓扑层、路由层和服务层通过 binding 机制融合，形成完整仿真实例。</p>
+                </div>
+                <div class="flow-card reveal">
+                    <div class="feature-icon">📦</div>
+                    <h3>3. 编译输出</h3>
+                    <p>编译器生成 Docker Compose 或 Kubernetes 所需的运行文件和容器配置。</p>
+                </div>
+                <div class="flow-card reveal">
+                    <div class="feature-icon">▶</div>
+                    <h3>4. 运行观察</h3>
+                    <p>启动容器后形成一个小型互联网，并可通过可视化界面观察数据包流向和事件过程。</p>
+                </div>
+            </div>
+            <div class="container video-card reveal">
+                <video autoplay muted loop playsinline preload="auto">
+                    <source src="video/build-and-run.mp4" type="video/mp4">
+                    您的浏览器不支持 video 标签。
+                </video>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-row">
+            <div>SEED Internet Emulator · 浙江大学杜文亮团队</div>
+            <div>面向网络安全教育、科研验证与互联网级实验展示</div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>

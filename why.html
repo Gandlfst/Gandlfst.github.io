@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>为什么需要 SEED - 互联网仿真系统</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/why.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🌐</div>
+                <div><strong>SEED Internet Emulator</strong><span>Research & Education Platform</span></div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="why.html" class="active-link">为什么需要</a>
+                <a href="how.html">工作原理</a>
+                <a href="capabilities.html">核心能力</a>
+                <a href="cases.html">应用场景</a>
+            </nav>
+            <div class="nav-right">
+                <div class="nav-lab-logo"><img src="images/zju_lab_logo.png" alt="浙江大学区块链与数据安全全国重点实验室"></div>
+                <a class="btn btn-dark" href="https://github.com/seed-labs/seed-emulator" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <div class="eyebrow">Why SEED Emulator</div>
+                <h2>传统网络仿真器解决不了全部网络安全需求</h2>
+                <p>许多工具更擅长网络层或设备级仿真，但网络安全实验往往需要完整的互联网基础设施和应用层生态。SEED Emulator 的目标，就是把这些复杂组件放进一个可编程、可复现、可运行的实验环境。</p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container features">
+                <div class="feature reveal">
+                    <div class="feature-icon">🧱</div>
+                    <h3>不只仿真网络层</h3>
+                    <p>除了主机、网络、路由器和 BGP，系统还支持 DNS、区块链、Web 服务、僵尸网络、暗网等更贴近真实互联网的基础设施与应用层组件。</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-icon">🧩</div>
+                    <h3>通过程序搭建互联网</h3>
+                    <p>用户用 Python SDK 定义拓扑、自治系统、互联网交换中心、路由关系和服务组件，使实验环境可以版本化、自动化和重复生成。</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>服务网络安全实验</h3>
+                    <p>可用于 BGP 劫持、DNS 基础设施、蠕虫传播、区块链安全、Botnet 与匿名网络等实验，降低真实环境中高风险实验的门槛。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-row">
+            <div>SEED Internet Emulator · 浙江大学杜文亮团队</div>
+            <div>面向网络安全教育、科研验证与互联网级实验展示</div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>

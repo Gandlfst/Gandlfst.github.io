@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核心能力 - SEED 互联网仿真系统</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/capabilities.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🌐</div>
+                <div><strong>SEED Internet Emulator</strong><span>Research & Education Platform</span></div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="why.html">为什么需要</a>
+                <a href="how.html">工作原理</a>
+                <a href="capabilities.html" class="active-link">核心能力</a>
+                <a href="cases.html">应用场景</a>
+            </nav>
+            <div class="nav-right">
+                <div class="nav-lab-logo"><img src="images/zju_lab_logo.png" alt="浙江大学区块链与数据安全全国重点实验室"></div>
+                <a class="btn btn-dark" href="https://github.com/seed-labs/seed-emulator" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <div class="eyebrow">Core Capabilities</div>
+                <h2>从基础互联网到复杂服务生态</h2>
+                <p>仿真器提供两类能力：一类是构成互联网的基本模块，另一类是面向网络安全与分布式系统实验的组合模块。</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container module-grid">
+                <div class="module reveal">
+                    <div class="feature-icon" style="background:#020617;color:white;">🕸️</div>
+                    <h3>基本模块</h3>
+                    <p>用于构建互联网骨架，帮助用户生成具备真实互联网关键结构的实验环境。</p>
+                    <div class="tags">
+                        <span class="tag">互联网交换中心</span><span class="tag">自治系统</span><span class="tag">网络与主机</span>
+                        <span class="tag">路由器</span><span class="tag">BGP 路由器</span><span class="tag">路由协议</span>
+                    </div>
+                </div>
+                <div class="module reveal">
+                    <div class="feature-icon" style="background:#0284c7;color:white;">⛓️</div>
+                    <h3>组合模块</h3>
+                    <p>用于快速部署复杂系统，使网络安全实验不再停留在单机或简单拓扑层面。</p>
+                    <div class="tags">
+                        <span class="tag blue">DNS 基础设施</span><span class="tag blue">区块链</span><span class="tag blue">僵尸网络</span>
+                        <span class="tag blue">暗网 Tor</span><span class="tag blue">Web 服务</span><span class="tag blue">DHCP 服务</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container large-scale-wrap">
+                <div class="large-scale-copy reveal">
+                    <div class="feature-icon" style="background:#020617;color:white;">🌐</div>
+                    <h3>模拟 10,000 个路由节点的互联网级实验环境</h3>
+                    <p>在真实 AS 关系、PeeringDB 等数据集基础上生成大规模拓扑，并在单机或多机环境中运行仿真。</p>
+                    <div class="large-scale-list">
+                        <div>真实数据驱动：AS 关系、PeeringDB 等数据集</div>
+                        <div>规模能力展示：单机运行万级路由节点</div>
+                        <div>扩展方向：通过 Kubernetes 实现多机联合仿真</div>
+                    </div>
+                </div>
+                <div class="video-card reveal">
+                    <video autoplay muted loop playsinline preload="auto">
+                        <source src="video/3000-2.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container highlight-grid">
+                <div class="highlight dark reveal">
+                    <div class="feature-icon" style="background:rgba(255,255,255,.1);color:white;">⛓️</div>
+                    <h3>真实软件参与仿真</h3>
+                    <p>区块链场景运行的是真实软件，而不是只做协议层抽象。以太坊、门罗币等系统可以部署在仿真互联网中。</p>
+                    <div class="small-grid">
+                        <div class="small-box">Ethereum</div><div class="small-box">Monero</div>
+                        <div class="small-box">MetaMask</div><div class="small-box">Remix / Truffle / Hardhat</div>
+                    </div>
+                </div>
+                <div class="highlight light reveal">
+                    <div class="feature-icon">🌐</div>
+                    <h3>重现互联网经典攻击</h3>
+                    <p>在可控环境中重现真实互联网中的著名攻击，不影响真实网络，却能观察攻击链路、传播路径和防御效果。</p>
+                    <div class="small-grid three">
+                        <div class="small-box">BGP Prefix Hijacking</div>
+                        <div class="small-box">Morris Worm</div>
+                        <div class="small-box">Mirai Botnet</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-row">
+            <div>SEED Internet Emulator · 浙江大学杜文亮团队</div>
+            <div>面向网络安全教育、科研验证与互联网级实验展示</div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
