@@ -41,18 +41,143 @@
             <div class="container features">
                 <div class="feature reveal">
                     <div class="feature-icon">🧱</div>
-                    <h3>不只仿真网络层</h3>
-                    <p>除了主机、网络、路由器和 BGP，系统还支持 DNS、区块链、Web 服务、僵尸网络、暗网等更贴近真实互联网的基础设施与应用层组件。</p>
+                    <h3>真实互联网不止拓扑</h3>
+                    <p>网络安全问题往往横跨自治系统、路由、DNS、Web 服务和应用软件。只看到链路和设备，很难解释攻击从哪里进入、怎样传播、为什么影响业务。</p>
                 </div>
                 <div class="feature reveal">
                     <div class="feature-icon">🧩</div>
-                    <h3>通过程序搭建互联网</h3>
-                    <p>用户用 Python SDK 定义拓扑、自治系统、互联网交换中心、路由关系和服务组件，使实验环境可以版本化、自动化和重复生成。</p>
+                    <h3>真实环境不适合试错</h3>
+                    <p>BGP 劫持、蠕虫传播、Botnet 控制链路、智能合约攻击等实验都需要可控边界。SEED 把高风险动作放进隔离的“小型互联网”，便于观察和复盘。</p>
                 </div>
                 <div class="feature reveal">
                     <div class="feature-icon">🛡️</div>
-                    <h3>服务网络安全实验</h3>
-                    <p>可用于 BGP 劫持、DNS 基础设施、蠕虫传播、区块链安全、Botnet 与匿名网络等实验，降低真实环境中高风险实验的门槛。</p>
+                    <h3>手工搭建难以复现</h3>
+                    <p>课程和科研都需要可重复的环境。SEED 用 Python SDK 描述实验，再编译成 Docker 或 Kubernetes 运行文件，让拓扑、服务和攻击流程都能版本化。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-map-section">
+            <div class="container why-map">
+                <div class="why-copy reveal">
+                    <div class="eyebrow">From Network To Internet</div>
+                    <h2>SEED 关注的是“可运行的互联网实验场”</h2>
+                    <p>
+                        SEED Emulator 以 Python SDK 为核心，提供自治系统、网络、主机、路由器、BGP 路由器、互联网交换中心等互联网基础构件，也提供 DNS、Web、区块链、Botnet、Darknet 等服务构件。用户用代码组合实验场景，生成一个可以启动、交互、观察的小型互联网。
+                    </p>
+                    <div class="why-points">
+                        <div>
+                            <span>01</span>
+                            <strong>像互联网一样组织</strong>
+                            <p>用 AS、IXP、BGP peer、DNS 层级和服务节点描述真实互联网结构。</p>
+                        </div>
+                        <div>
+                            <span>02</span>
+                            <strong>像系统一样运行</strong>
+                            <p>编译后生成容器文件，由 Docker 或 Kubernetes 承载，节点中可以运行真实软件。</p>
+                        </div>
+                        <div>
+                            <span>03</span>
+                            <strong>像实验一样复现</strong>
+                            <p>同一份 Python 描述可以反复生成，适合教学实验、科研验证和演示展示。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <figure class="internet-visual reveal" aria-label="SEED Emulator 小型互联网构建示意图">
+                    <div class="visual-title">
+                        <span>Mini Internet Lab</span>
+                        <strong>Python SDK → Containers</strong>
+                    </div>
+                    <div class="visual-canvas">
+                        <svg class="network-links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M 50 50 C 42 42 34 34 22 31"></path>
+                            <path d="M 50 50 C 58 42 66 34 78 31"></path>
+                            <path d="M 50 50 C 42 58 34 66 22 70"></path>
+                            <path d="M 50 50 C 58 58 66 66 78 70"></path>
+                        </svg>
+
+                        <div class="ixp-node">IXP</div>
+                        <div class="as-node as-a">
+                            <strong>AS100</strong>
+                            <span>BGP Router</span>
+                        </div>
+                        <div class="as-node as-b">
+                            <strong>AS200</strong>
+                            <span>Web / DNS</span>
+                        </div>
+                        <div class="as-node as-c">
+                            <strong>AS300</strong>
+                            <span>Blockchain</span>
+                        </div>
+                        <div class="as-node as-d">
+                            <strong>AS400</strong>
+                            <span>Botnet Lab</span>
+                        </div>
+
+                        <div class="service-pill dns">DNS</div>
+                        <div class="service-pill bgp">BGP</div>
+                        <div class="service-pill dark">Darknet</div>
+                        <div class="service-pill chain">Smart Contract</div>
+                    </div>
+                </figure>
+            </div>
+        </section>
+
+        <section class="comparison-section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <div class="eyebrow">Why It Matters</div>
+                    <h2>它补上的不是一个功能，而是一整条实验链路</h2>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-card reveal">
+                        <span>传统设备或拓扑仿真</span>
+                        <h3>重点在网络结构</h3>
+                        <p>适合观察链路、设备和协议行为，但要同时组织 DNS、Web、区块链、恶意软件传播等上层生态时，往往需要大量手工拼接。</p>
+                    </div>
+                    <div class="comparison-card seed-card reveal">
+                        <span>SEED Emulator</span>
+                        <h3>重点在互联网生态</h3>
+                        <p>把 AS、IXP、BGP、DNS 与应用服务统一在一个实验描述里，让“网络如何支撑攻击或防御”变成可以运行的实验。</p>
+                    </div>
+                    <div class="comparison-card reveal">
+                        <span>真实互联网实验</span>
+                        <h3>风险和成本都太高</h3>
+                        <p>真实网络不可随意破坏，也难以复现边界条件。SEED 提供隔离环境，让学生和研究者可以安全地观察攻击链路与系统响应。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="labs-section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <div class="eyebrow">Typical Labs</div>
+                    <h2>适合承载更接近真实互联网的安全实验</h2>
+                    <p>平台可以承载多个贴近真实互联网的实验方向，包括 BGP、DNS、区块链、Morris Worm、Botnet 和 Darknet 等。</p>
+                </div>
+                <div class="lab-grid">
+                    <div class="lab-card reveal">
+                        <div class="lab-icon">🛰️</div>
+                        <h3>BGP 探索与劫持</h3>
+                        <p>构造多个自治系统和互联网交换中心，观察路由传播、前缀劫持和跨 AS 影响。</p>
+                    </div>
+                    <div class="lab-card reveal">
+                        <div class="lab-icon">🌍</div>
+                        <h3>DNS 基础设施</h3>
+                        <p>搭建 root、TLD、权威服务器等层级，理解解析链路以及 DNS 相关攻击面。</p>
+                    </div>
+                    <div class="lab-card reveal">
+                        <div class="lab-icon">⛓️</div>
+                        <h3>区块链与智能合约</h3>
+                        <p>把以太坊等真实系统部署进仿真互联网，用可控网络环境观察合约与节点行为。</p>
+                    </div>
+                    <div class="lab-card reveal">
+                        <div class="lab-icon">🧬</div>
+                        <h3>蠕虫、Botnet 与暗网</h3>
+                        <p>在隔离环境中复现传播、控制和匿名通信路径，适合讲解攻击链与防御策略。</p>
+                    </div>
                 </div>
             </div>
         </section>
