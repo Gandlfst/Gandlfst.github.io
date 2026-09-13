@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="container header-inner">
+    {% include components/brand.html %}
+    <nav class="main-navigation" id="main-navigation" aria-label="Main navigation">
+      {% for item in site.data.navigation %}
+      <a href="{{ '/' | relative_url }}#{{ item.id }}" data-section="{{ item.id }}"{% if page.nav_key == item.page %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a>
+      {% endfor %}
+      <a class="nav-github" href="https://github.com/seed-labs/seed-emulator">{% include components/icon.html name="github" %} GitHub {% include components/icon.html name="external" %}</a>
+    </nav>
+    <div class="header-controls">
+      {% include components/theme-picker.html %}
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation">
+        {% include components/icon.html name="menu" %}
+      </button>
+    </div>
+  </div>
+</header>

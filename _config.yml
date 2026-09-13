@@ -1,0 +1,32 @@
+title: SEED Internet Emulator
+description: >-
+  Build realistic Internet environments for research, education, and experimentation
+  with the SEED Internet Emulator.
+url: "https://gandlfst.github.io"
+baseurl: ""
+lang: en
+
+markdown: kramdown
+highlighter: rouge
+strict_front_matter: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - .bundle
+  - .github
+  - .gitignore
+  - AGENTS.md
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - package.json
+  - package-lock.json
+  - scripts
+  - vendor
+  - video/README.md

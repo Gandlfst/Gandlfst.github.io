@@ -1,0 +1,11 @@
+---
+layout: null
+---
+/* Palette values are shared with the theme picker through Jekyll data. */
+{% for theme in site.data.themes %}
+{% if forloop.first %}:root,
+{% endif %}:root[data-theme="{{ theme.id }}"] {
+  color-scheme: {{ theme.scheme }};
+{% for color in theme.colors %}  --{{ color[0] }}: {{ color[1] }};
+{% endfor %}}
+{% endfor %}
