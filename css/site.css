@@ -30,7 +30,7 @@ button { color: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 23px; font-weight: 750; letter-spacing: -.8px; }
 .brand-mark { width: 30px; height: 30px; flex-shrink: 0; display: block; }
 .brand--logo { flex-shrink: 0; padding: 5px 7px; }
-.brand-logo { display: block; width: 150px; height: auto; filter: var(--brand-logo-filter, none); }
+.brand-logo { display: block; width: 150px; max-height: 48px; height: auto; object-fit: contain; filter: var(--brand-logo-filter, none); }
 @media (max-width: 440px) {
   .site-header .header-inner { gap: 12px; }
   .brand--logo { padding: 4px 5px; }
