@@ -51,6 +51,10 @@ Generated files are written to `_site/` and are ignored by Git.
   the header selector. The choice is stored locally in the visitor's browser;
   `_includes/theme-init.html` restores it before styles load to avoid a color flash.
 - Pages at the repository root provide English content and front matter.
+- The footer language button offers Chinese copy review while English remains
+  the default. `_data/zh.json` stores translations, and `_includes/language.html`
+  loads the shared switcher. The choice lasts for the current browser tab;
+  code samples and protocol names retain their original text.
 - `css/`, `images/`, and `video/` contain local presentation and media assets.
 
 Add YAML front matter to every page that should use a Jekyll layout. Use

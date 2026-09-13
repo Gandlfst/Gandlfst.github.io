@@ -1,5 +1,11 @@
 /* Shared design system: every page is composed from Jekyll includes. */
 :root { --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace; }
+.footer-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.language-toggle { padding: 4px 9px; border: 1px solid var(--line-strong); border-radius: 5px; background: transparent; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.language-toggle:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+html[lang="zh-CN"] h1, html[lang="zh-CN"] h2, html[lang="zh-CN"] h3, html[lang="zh-CN"] .hero-headline { letter-spacing: 0; }
+html[lang="zh-CN"] .hero-name { letter-spacing: -.07em; }
+@media (max-width: 440px) { .footer-bottom { flex-wrap: wrap; } .footer-actions { margin-left: auto; } }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, "Segoe UI", Arial, sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
