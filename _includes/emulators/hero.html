@@ -1,0 +1,13 @@
+<section class="portal-intro container" aria-labelledby="portal-title">
+  <div class="portal-intro-copy">
+    <p class="portal-eyebrow">{{ site.data.home.hero.eyebrow | escape }}</p>
+    <h1 id="portal-title">{{ site.data.home.hero.title }}</h1>
+    <p class="portal-intro-tagline">{{ site.data.home.hero.tagline }}</p>
+    <p class="portal-intro-description">{{ site.data.home.hero.description }}</p>
+    <div class="portal-intro-actions">
+      <a class="portal-hero-button" href="#projects-title">Explore our projects {% include components/icon.html name="arrow" %}</a>
+      <a class="portal-hero-link" href="{{ site.data.home.hero.source_url }}">Source code {% include components/icon.html name="external" %}</a>
+    </div>
+  </div>
+  {% include emulators/network-art.html %}
+</section>

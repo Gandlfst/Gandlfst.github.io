@@ -1,3 +1,23 @@
 <footer class="portal-footer">
-  <div class="container"><span>SEED Emulators &middot; Research &amp; Education</span><a href="https://seedsecuritylabs.org/">SEED Project</a><a href="#main">Back to top {% include components/icon.html name="arrow" %}</a></div>
+  <div class="container portal-footer-main">
+    <div class="portal-footer-about">
+      <a class="portal-footer-brand" href="{{ '/' | relative_url }}">SEED Emulators</a>
+      <p>{{ site.data.portal_footer.description }}</p>
+      <span class="portal-footer-motto">Open source. Open possibilities.</span>
+    </div>
+    {% for group in site.data.portal_footer.groups %}{% include emulators/footer-links.html group=group %}{% endfor %}
+    <section class="portal-footer-team" id="team-contact" tabindex="-1" aria-labelledby="footer-team-title">
+      <h2 id="footer-team-title">People behind SEED</h2>
+      <a class="portal-footer-author" href="{{ site.data.portal_footer.author.url }}">{{ site.data.portal_footer.author.name }} {% include components/icon.html name="external" %}</a>
+      <span class="portal-footer-role">{{ site.data.portal_footer.author.role }}</span>
+      <p>{{ site.data.portal_footer.author.description }}</p>
+      <a href="mailto:{{ site.data.portal_footer.author.email }}">{{ site.data.portal_footer.author.email }}</a>
+      <a class="portal-footer-team-link" href="{{ site.data.portal_footer.author.url }}">Meet the team {% include components/icon.html name="arrow" %}</a>
+    </section>
+  </div>
+  <div class="container portal-footer-bottom">
+    <span>SEED Emulators &middot; Research &amp; Education</span>
+    <span>Wenliang Du &amp; contributors</span>
+    <div class="portal-footer-actions">{% include components/language-toggle.html %}<a class="portal-footer-back" href="#main">Back to top {% include components/icon.html name="arrow" %}</a></div>
+  </div>
 </footer>

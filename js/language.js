@@ -42,9 +42,9 @@
       const value = translateValue(node, 'text', node.nodeValue);
       if (value !== node.nodeValue) node.nodeValue = value;
     }
-    document.querySelectorAll('[aria-label], [title], meta[name="description"], meta[property="og:title"], meta[property="og:description"]').forEach(element => {
+    document.querySelectorAll('[aria-label], [title], [alt], meta[name="description"], meta[property="og:title"], meta[property="og:description"]').forEach(element => {
       if (element === toggle) return;
-      for (const attribute of ['aria-label', 'title', 'content']) {
+      for (const attribute of ['aria-label', 'title', 'alt', 'content']) {
         if (!element.hasAttribute(attribute)) continue;
         const current = element.getAttribute(attribute);
         const value = translateValue(element, attribute, current);
@@ -63,7 +63,7 @@
       const poster = language === 'zh-CN' ? source.replace(/\.svg$/, '-zh.svg') : source;
       if (video.getAttribute('poster') !== poster) video.setAttribute('poster', poster);
     });
-    observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['aria-label', 'title'] });
+    observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['aria-label', 'title', 'alt'] });
   };
   toggle.addEventListener('click', () => {
     language = language === 'en' ? 'zh-CN' : 'en';

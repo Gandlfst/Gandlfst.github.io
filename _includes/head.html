@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="{{ site.data.themes.first.colors.bg }}">
-{% include theme-init.html %}
+{% if page.portal %}{% include emulators/theme-init.html %}{% else %}{% include theme-init.html %}{% endif %}
 <title>{% unless page.home %}{{ page.title | escape }} · {% endunless %}{{ site.title | escape }}</title>
 <meta name="description" content="{{ page.description | default: site.description | escape }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
@@ -14,4 +14,4 @@
 {% include components/stylesheet.html path="/css/site.css" %}
 {% include components/stylesheet.html path="/css/theme-picker.css" %}
 {% if page.extra_css %}{% include components/stylesheet.html path=page.extra_css %}{% endif %}
-{% if page.portal %}{% include components/stylesheet.html path="/css/emulators.css" %}{% endif %}
+{% if page.portal %}{% include components/stylesheet.html path="/css/emulators.css" %}{% include components/stylesheet.html path="/css/portal-themes.css" %}{% endif %}

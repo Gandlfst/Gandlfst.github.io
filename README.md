@@ -1,91 +1,168 @@
 # SEED Emulators website
 
-An English-language Jekyll website with a shared homepage and individual project
-pages for the Internet, Satellite Network, and Blockchain emulators.
+A Jekyll site with an English homepage, three emulator project pages, and an
+optional Chinese language switch. No frontend framework or Node build is needed.
 
 ## Run locally
 
-Install Ruby 3.3 and Bundler, then run these commands from the repository root:
+Install Ruby 3.3 and Bundler. From the repository root:
 
 ```sh
 bundle install
-bundle exec jekyll serve --livereload
+bundle exec jekyll serve --host 127.0.0.1 --port 4173
 ```
 
-Open [http://localhost:4000](http://localhost:4000). On Windows, RubyInstaller with
-Devkit provides Ruby and the tools needed to install native gem dependencies.
+Open http://127.0.0.1:4173/. Changes to pages, includes, data and CSS rebuild
+automatically; refresh the browser to see them. Restart Jekyll after changing
+`_config.yml`. On Windows, use RubyInstaller with Devkit.
 
-To create the production site:
+Build without starting a server:
 
 ```sh
-JEKYLL_ENV=production bundle exec jekyll build --trace
+bundle exec jekyll build
 ```
 
-In PowerShell, set the environment variable before building:
+`_site/` is generated output, ignored by Git. Edit source files, never `_site/`.
 
-```powershell
-$env:JEKYLL_ENV = "production"
-bundle exec jekyll build --trace
+## Current site structure
+
+```text
+index.html                        Homepage: assembles sections only
+internet/index.html               Internet project content and resource lists
+satellite/index.html              Satellite project content and resource lists
+blockchain/index.html             Blockchain project content and resource lists
+_config.yml                       Site URL, title, defaults and build settings
+_data/
+  home.yml                        Homepage hero, project cards and contact copy
+  portal_navigation.yml           Current site's top navigation
+  portal_themes.yml               Default, Night, Teal and Dawn palettes
+  portal_footer.yml               Footer links and team data, shared with sidebar
+  zh.json                         English-to-Chinese text translations
+_layouts/
+  emulators.html                  HTML shell, head, header, main, footer, scripts
+  emulator.html                   Project layout, nested inside emulators.html
+_includes/
+  emulators/
+    header.html                   Logo and navigation
+    theme-picker.html             Inline palette buttons in the navigation bar
+    theme-init.html               Restores the saved palette before page paint
+    hero.html                     Homepage banner
+    network-art.html              Banner illustration
+    projects.html                 Loops over home.yml project cards
+    project.html                  One reusable project card
+    sidebar.html                  Team and resource sidebar
+    contact.html                  Homepage contact strip
+    footer.html                   Shared footer and language switch
+    footer-links.html             One footer link group
+    resource.html                 One project resource row
+  components/                     Shared icons, video player, language button, etc.
+  head.html                       Metadata and stylesheets
+  scripts.html                    Shared JavaScript entry points
+  language.html                   Translation data and language script
+css/emulators.css                 Current homepage and project styles
+css/portal-themes.css             Generates palette overrides and styles buttons
+css/site.css                      Shared base styles and older detail-page styles
+js/language.js                    Chinese/English switching
+js/portal-theme.js                Applies and remembers the portal palette
+js/site.js                        Navigation and shared interactions
+images/                           Logos, card images and illustrations
+video/                            Local video files
 ```
 
-Generated files are written to `_site/` and are ignored by Git.
+## How a page is rendered
 
-## Edit the site
+The homepage declares `layout: emulators` in its YAML front matter:
 
-- `index.html` contains the homepage introduction and the three project summaries.
-- `internet/index.html`, `satellite/index.html`, and `blockchain/index.html`
-  contain each project's overview and its `resources` and `videos` lists. Edit
-  these HTML files to update project content. A resource with `url: null` is
-  shown as "Coming soon", without a broken download link. Use a local path or
-  a full URL when the material is available.
-- Videos accept `title`, `description`, and either `url` for an external video
-  or `src`, optional `webm`, and optional `poster` for a local video.
-- `_layouts/emulators.html` provides the common emulator site shell;
-  `_layouts/emulator.html` provides the project overview, resource list, and
-  video section. `_includes/emulators/` contains the shared navigation,
-  footer, project preview, and resource row. `css/emulators.css` styles them.
-- The Satellite project currently provides the page framework only. Its
-  presentation, documentation, repository, and video URLs are ready to fill in.
-- `images/blockchain-preview.png` is the Ethereum preview from the SEED
-  Blockchain Exploration Lab. The Internet preview uses the existing Internet
-  Map poster. Replace preview paths in the homepage when new images are ready.
-- `_config.yml` holds the site title, description, public URL, and Jekyll settings.
-- `_layouts/default.html` provides the shared document shell, and
-  `_layouts/page.html` composes inner pages with their common header.
-- `_includes/head.html`, `header.html`, `footer.html`, and `scripts.html` provide
-  shared page infrastructure.
-- `_includes/components/` contains reusable cards, icons, section headings,
-  code blocks, tags, video players, and network illustrations.
-- `_includes/sections/` contains the shared hero, feature, workflow, scenario,
-  case study, demo, quick-start, and call-to-action sections. Keep repeated markup
-  in includes; render it with Liquid's `{% include %}` tag and pass values as
-  parameters.
-- `_data/navigation.yml` defines navigation links, and `_data/site_content.yml`
-  stores shared structured content consumed by pages and includes.
-- `_data/themes.yml` defines five palettes: Terracotta, Forest, Ocean, Graphite,
-  and Original. `css/themes.css` generates their
-  shared color variables, and `_includes/components/theme-picker.html` provides
-  the header selector. The choice is stored locally in the visitor's browser;
-  `_includes/theme-init.html` restores it before styles load to avoid a color flash.
-- Pages at the repository root provide English content and front matter.
-- The footer language button offers Chinese copy review while English remains
-  the default. `_data/zh.json` stores translations, and `_includes/language.html`
-  loads the shared switcher. The choice lasts for the current browser tab;
-  code samples and protocol names retain their original text.
-- `css/`, `images/`, and `video/` contain local presentation and media assets.
+```text
+_layouts/emulators.html
+  head + emulators/header.html
+  main: {{ content }}
+    index.html
+      emulators/hero.html
+      emulators/projects.html -> emulators/project.html (one per data entry)
+      emulators/sidebar.html
+      emulators/contact.html
+  emulators/footer.html + scripts
+```
 
-Add YAML front matter to every page that should use a Jekyll layout. Use
-`relative_url` for local links and assets so the site can also run under a project
-base path. Restart the development server after changing `_config.yml`.
+This is why `index.html` does not include the header and footer itself. Its
+rendered content is inserted at `{{ content }}` in the layout, once.
 
-## Deploy to GitHub Pages
+Project pages use `layout: emulator`. Jekyll renders their content inside
+`_layouts/emulator.html` (overview, resources, videos), then wraps that with
+`_layouts/emulators.html` for the same header and footer.
 
-In the repository's **Settings → Pages**, select **GitHub Actions** as the build
-and deployment source. The workflow in `.github/workflows/static.yml` installs
-the locked Ruby dependencies, builds Jekyll, and deploys only `_site/` after a push
-to `master`. Pull requests build the site without deploying it. The workflow can
-also be started manually from the Actions tab.
+## Where to make changes
 
-The published site is configured for
-[https://gandlfst.github.io](https://gandlfst.github.io). Update `url` and `baseurl`
-in `_config.yml` before deploying to a different location.
+| Change | File |
+| --- | --- |
+| Homepage headline, description, project images and summaries | `_data/home.yml` |
+| Top navigation labels, order and links | `_data/portal_navigation.yml` |
+| Author, email, footer links and sidebar resources | `_data/portal_footer.yml` |
+| Homepage section order | `index.html` |
+| Header or footer markup | `_includes/emulators/header.html`, `footer.html` |
+| Card structure used by every project | `_includes/emulators/project.html` |
+| Colors, spacing, cards and responsive layout | `css/emulators.css` |
+| Palette names, swatches and color values | `_data/portal_themes.yml` |
+| Project overview, downloads and videos | Each project's `index.html` |
+| Chinese copy | `_data/zh.json` |
+| Public domain and deployment subpath | `_config.yml` |
+
+Keep English as the source language. If English copy changes, update the matching
+key in `_data/zh.json`. The footer language choice lasts for the current browser
+tab. Code samples, protocol names and image contents keep their original form.
+
+Use includes for reusable markup, `_data` for structured shared content, and
+layouts for the page shell. Page-specific prose belongs in the page itself.
+Use `relative_url` for local links and media paths so `baseurl` works.
+
+## Add a project or resource
+
+1. Create `project-name/index.html` with `layout: emulator`, `portal: true`, a
+   unique `project` key, `title`, `category` and `description` in front matter.
+   Write its overview below the closing `---`.
+2. Add its card to `_data/home.yml` under `projects`; copy an existing entry.
+3. Add the navigation entry to `_data/portal_navigation.yml` using the same
+   `project` key as its `key`. Add its footer link to `_data/portal_footer.yml`.
+4. Add translations to `_data/zh.json` and place preview images in `images/`.
+
+Project front matter accepts `repository`, `resources` and `videos`. Copy an
+existing project's `index.html` for the complete format. A resource with
+`url: null` displays "Coming soon". Videos use `title`, `description`, and either
+`url` for an external video or `src`, optional `webm`, and optional `poster` for
+a local video. No video entries displays the existing availability message.
+
+The satellite illustration is conceptual artwork. Its project documentation,
+repository and video links are still awaiting actual materials.
+
+## Older detail pages
+
+`why.html`, `how.html`, `capabilities.html`, `cases.html`, `bsday.html` and
+`404.html` use the older `default` / `page` layouts. They remain available;
+the Internet project links to some of them.
+
+Their header/footer are `_includes/header.html` and `_includes/footer.html`.
+Their content uses `_includes/sections/`, `_data/site_content.yml` and
+`_data/navigation.yml`. Their five-color theme selector uses `_data/themes.yml`,
+`css/themes.css`, `css/theme-picker.css` and `js/theme.js`.
+
+The current homepage and three project pages use `_includes/emulators/` and
+offer four palettes in the navigation bar. Their choice is stored in
+`seed-portal-theme` in localStorage, separately from the older detail-page
+themes. Add a palette by copying a complete entry in `_data/portal_themes.yml`;
+the buttons and CSS are generated from that list. Keep IDs unique and add
+translated names to `_data/zh.json`. The first entry is the default.
+To edit those pages, start with the files in the table
+above. Some base styles and scripts are shared between both layout families.
+
+## GitHub Pages
+
+In **Settings -> Pages**, choose **GitHub Actions**. The workflow at
+`.github/workflows/static.yml` builds the Jekyll site and publishes `_site/`
+on pushes to `master` or manual dispatch. Pull requests targeting `master`
+build without deploying. A push to `test` does not trigger this workflow.
+
+The configured public URL is https://gandlfst.github.io. Update `url` and
+`baseurl` in `_config.yml` before publishing elsewhere. Dependencies are locked
+in `Gemfile.lock`; after changing gems, run `bundle install` and commit the
+updated lockfile together with `Gemfile`.
