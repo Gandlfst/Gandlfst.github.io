@@ -1,0 +1,13 @@
+<header class="site-header portal-header">
+  <div class="container header-inner">
+    <a class="portal-brand" href="{{ '/' | relative_url }}" aria-label="SEED Emulators home"><img src="{{ '/images/seed-labs-logo.png' | relative_url }}" alt="SEED Labs" width="150" height="46"><span>Emulators</span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation">{% include components/icon.html name="menu" %}</button>
+    <nav class="main-navigation" id="main-navigation" aria-label="Main navigation">
+      <a href="{{ '/' | relative_url }}"{% if page.home %} aria-current="page"{% endif %}>Home</a>
+      <a href="{{ '/internet/' | relative_url }}"{% if page.project == 'internet' %} aria-current="page"{% endif %}>Internet</a>
+      <a href="{{ '/satellite/' | relative_url }}"{% if page.project == 'satellite' %} aria-current="page"{% endif %}>Satellite</a>
+      <a href="{{ '/blockchain/' | relative_url }}"{% if page.project == 'blockchain' %} aria-current="page"{% endif %}>Blockchain</a>
+      <a href="https://seedsecuritylabs.org/">SEED Labs {% include components/icon.html name="external" %}</a>
+    </nav>
+  </div>
+</header>

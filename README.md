@@ -1,7 +1,7 @@
-# SEED Internet Emulator website
+# SEED Emulators website
 
-An English-language Jekyll website for the SEED Internet Emulator, a platform for
-Internet research, education, and experimentation.
+An English-language Jekyll website with a shared homepage and individual project
+pages for the Internet, Satellite Network, and Blockchain emulators.
 
 ## Run locally
 
@@ -32,6 +32,23 @@ Generated files are written to `_site/` and are ignored by Git.
 
 ## Edit the site
 
+- `index.html` contains the homepage introduction and the three project summaries.
+- `internet/index.html`, `satellite/index.html`, and `blockchain/index.html`
+  contain each project's overview and its `resources` and `videos` lists. Edit
+  these HTML files to update project content. A resource with `url: null` is
+  shown as "Coming soon", without a broken download link. Use a local path or
+  a full URL when the material is available.
+- Videos accept `title`, `description`, and either `url` for an external video
+  or `src`, optional `webm`, and optional `poster` for a local video.
+- `_layouts/emulators.html` provides the common emulator site shell;
+  `_layouts/emulator.html` provides the project overview, resource list, and
+  video section. `_includes/emulators/` contains the shared navigation,
+  footer, project preview, and resource row. `css/emulators.css` styles them.
+- The Satellite project currently provides the page framework only. Its
+  presentation, documentation, repository, and video URLs are ready to fill in.
+- `images/blockchain-preview.png` is the Ethereum preview from the SEED
+  Blockchain Exploration Lab. The Internet preview uses the existing Internet
+  Map poster. Replace preview paths in the homepage when new images are ready.
 - `_config.yml` holds the site title, description, public URL, and Jekyll settings.
 - `_layouts/default.html` provides the shared document shell, and
   `_layouts/page.html` composes inner pages with their common header.

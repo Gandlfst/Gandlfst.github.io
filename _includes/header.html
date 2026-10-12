@@ -3,7 +3,8 @@
     {% include components/brand.html logo=true %}
     <nav class="main-navigation" id="main-navigation" aria-label="Main navigation">
       {% for item in site.data.navigation %}
-      <a href="{{ '/' | relative_url }}#{{ item.id }}" data-section="{{ item.id }}"{% if page.nav_key == item.page %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a>
+      {% if item.page == 'quickstart' %}{% assign nav_url = '/internet/#resources' %}{% else %}{% assign nav_url = '/' | append: item.page | append: '.html' %}{% endif %}
+      <a href="{{ nav_url | relative_url }}"{% if page.nav_key == item.page %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a>
       {% endfor %}
       <a class="nav-github" href="https://github.com/seed-labs/seed-emulator">{% include components/icon.html name="github" %} GitHub {% include components/icon.html name="external" %}</a>
     </nav>
