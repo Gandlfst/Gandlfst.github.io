@@ -1,8 +1,0 @@
-<nav class="portal-footer-links" aria-label="{{ include.group.title | escape }}">
-  <h2>{{ include.group.title }}</h2>
-  <ul>
-    {% for link in include.group.links %}
-    <li><a href="{{ link.url | relative_url }}">{{ link.title }}{% if link.external %}{% include components/icon.html name="external" %}{% endif %}</a></li>
-    {% endfor %}
-  </ul>
-</nav>

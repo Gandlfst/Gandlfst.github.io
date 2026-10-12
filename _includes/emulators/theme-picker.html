@@ -1,5 +1,0 @@
-<div class="portal-palette" role="group" aria-label="Color theme" data-portal-palette hidden>
-  {% for theme in site.data.portal_themes %}
-  <button type="button" data-portal-theme="{{ theme.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><span class="portal-palette-swatch" style="--swatch: {{ theme.swatch }}" aria-hidden="true"></span><span>{{ theme.name }}</span></button>
-  {% endfor %}
-</div>

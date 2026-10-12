@@ -1,5 +1,0 @@
-<li class="emulator-resource">
-  <span class="emulator-resource-type">{{ include.resource.type }}</span>
-  <div><h3>{{ include.resource.title }}</h3><p>{{ include.resource.description }}</p></div>
-  {% if include.resource.url %}<a href="{{ include.resource.url | relative_url }}" aria-label="Open {{ include.resource.title | escape }} ({{ include.resource.type }})">Open {% include components/icon.html name="external" %}</a>{% else %}<span class="emulator-resource-pending">Coming soon</span>{% endif %}
-</li>

@@ -1,168 +1,179 @@
-# SEED Emulators website
+# SEED Emulators 网站
 
-A Jekyll site with an English homepage, three emulator project pages, and an
-optional Chinese language switch. No frontend framework or Node build is needed.
+这是一个 Jekyll 静态网站。默认英文，支持中文检查与四套配色。
+结构分为：**页面内容、一个公共布局、平铺组件、共享数据、静态资源**。
 
-## Run locally
+## 本地运行
 
-Install Ruby 3.3 and Bundler. From the repository root:
+安装 Ruby 3.3 和 Bundler，在项目根目录执行：
 
 ```sh
 bundle install
 bundle exec jekyll serve --host 127.0.0.1 --port 4173
 ```
 
-Open http://127.0.0.1:4173/. Changes to pages, includes, data and CSS rebuild
-automatically; refresh the browser to see them. Restart Jekyll after changing
-`_config.yml`. On Windows, use RubyInstaller with Devkit.
+打开 http://127.0.0.1:4173/。修改页面、组件、数据或样式后会自动构建，
+刷新浏览器即可看到变化。修改 `_config.yml` 后需重启服务。
 
-Build without starting a server:
+只构建，不启动服务：
 
 ```sh
 bundle exec jekyll build
 ```
 
-`_site/` is generated output, ignored by Git. Edit source files, never `_site/`.
+生成结果在 `_site/`。**不要修改 `_site/`，下次构建会覆盖它。**
 
-## Current site structure
+## 目录：每类文件只负责一件事
 
 ```text
-index.html                        Homepage: assembles sections only
-internet/index.html               Internet project content and resource lists
-satellite/index.html              Satellite project content and resource lists
-blockchain/index.html             Blockchain project content and resource lists
-_config.yml                       Site URL, title, defaults and build settings
-_data/
-  home.yml                        Homepage hero, project cards and contact copy
-  portal_navigation.yml           Current site's top navigation
-  portal_themes.yml               Default, Night, Teal and Dawn palettes
-  portal_footer.yml               Footer links and team data, shared with sidebar
-  zh.json                         English-to-Chinese text translations
+index.html                 首页：只组装三个主要区域
+internet-emulator/index.html        互联网项目内容、资料和视频
+satellite/index.html       卫星项目内容、资料和视频
+blockchain/index.html      区块链项目内容、资料和视频
+404.html                   必要的错误页面
+_config.yml                站点名称、域名、构建配置
+
 _layouts/
-  emulators.html                  HTML shell, head, header, main, footer, scripts
-  emulator.html                   Project layout, nested inside emulators.html
-_includes/
-  emulators/
-    header.html                   Logo and navigation
-    theme-picker.html             Inline palette buttons in the navigation bar
-    theme-init.html               Restores the saved palette before page paint
-    hero.html                     Homepage banner
-    network-art.html              Banner illustration
-    projects.html                 Loops over home.yml project cards
-    project.html                  One reusable project card
-    sidebar.html                  Team and resource sidebar
-    contact.html                  Homepage contact strip
-    footer.html                   Shared footer and language switch
-    footer-links.html             One footer link group
-    resource.html                 One project resource row
-  components/                     Shared icons, video player, language button, etc.
-  head.html                       Metadata and stylesheets
-  scripts.html                    Shared JavaScript entry points
-  language.html                   Translation data and language script
-css/emulators.css                 Current homepage and project styles
-css/portal-themes.css             Generates palette overrides and styles buttons
-css/site.css                      Shared base styles and older detail-page styles
-js/language.js                    Chinese/English switching
-js/portal-theme.js                Applies and remembers the portal palette
-js/site.js                        Navigation and shared interactions
-images/                           Logos, card images and illustrations
-video/                            Local video files
+  default.html             唯一布局：页首 → 正文 → 页尾，不继承其他布局
+
+_includes/                 所有组件平铺，不再分多层目录
+  head.html                元信息、配色初始化、CSS
+  header.html              Logo、主导航、配色按钮
+  hero.html                首页横幅，直接包含装饰插图
+  projects.html            首页项目列表
+  project-card.html        一张可复用的项目卡片
+  sidebar.html             首页右侧团队和资源
+  contact.html             首页底部联系条
+  project-page.html        项目详情区：标题、概览、资料、视频
+  resource.html            一条可复用的资料记录
+  video.html               一个可复用的本地视频播放器
+  footer.html              页尾简介、链接和团队信息
+  theme-init.html          首屏恢复保存的配色
+  theme-picker.html        配色胶囊按钮
+  language-toggle.html     中英文切换按钮
+  icon.html                共享 SVG 图标
+  scripts.html             共享脚本与翻译数据入口
+
+_data/
+  home.yml                 首页横幅、项目卡片和联系条文案
+  navigation.yml           顶部导航
+  footer.yml               页尾和侧栏共用的团队、邮箱、资源链接
+  themes.yml               四套配色的唯一数据来源
+  zh.json                  英文原文 → 中文翻译
+
+css/
+  base.css                 基础排版、可访问性、视频播放器
+  main.css                 各区块布局、字号、间距和响应式断点
+  themes.css               从 themes.yml 生成配色，以及按钮样式
+js/
+  site.js                  手机导航和视频错误提示
+  theme.js                 配色切换与浏览器保存
+  language.js              中文检查模式，支持恢复英文
+images/                    正在使用的 Logo、卡片图、视频封面
+video/                     正在使用的本地演示视频
+scripts/check-site.cjs      构建后检查页面、链接、资源和组件引用
 ```
 
-## How a page is rendered
+## 页面如何调用
 
-The homepage declares `layout: emulators` in its YAML front matter:
+所有页面顶部都写 `layout: default`。没有 layout 套 layout：
 
 ```text
-_layouts/emulators.html
-  head + emulators/header.html
-  main: {{ content }}
-    index.html
-      emulators/hero.html
-      emulators/projects.html -> emulators/project.html (one per data entry)
-      emulators/sidebar.html
-      emulators/contact.html
-  emulators/footer.html + scripts
+首页 index.html ───────────────┐
+项目页 */index.html ──────────┼─→ default.html → 完整 HTML
+404.html ─────────────────────┘
 ```
 
-This is why `index.html` does not include the header and footer itself. Its
-rendered content is inserted at `{{ content }}` in the layout, once.
+`default.html` 的正文区只有一个判断：
 
-Project pages use `layout: emulator`. Jekyll renders their content inside
-`_layouts/emulator.html` (overview, resources, videos), then wraps that with
-`_layouts/emulators.html` for the same header and footer.
+```liquid
+{% if page.project %}
+  {% include project-page.html %}
+{% else %}
+  {{ content }}
+{% endif %}
+```
 
-## Where to make changes
+- 首页没有 `project`，直接插入首页组装好的区域。
+- 项目页有 `project`，使用 `project-page.html` 组织详情。
+  组件里的 `{{ content }}` 插入该项目文件第二个 `---` 后的正文。
+- 404 没有 `project`，直接插入错误提示。
+- 页首、页尾只在 `default.html` 中调用一次。
 
-| Change | File |
+组件目录全部平铺，只保留必要的复用：项目列表调用卡片，详情区调用资料行、
+视频播放器，各区块调用共享图标。简单列表和装饰插图不再额外拆组件。
+
+## 常见修改位置
+
+| 想修改什么 | 修改哪里 |
 | --- | --- |
-| Homepage headline, description, project images and summaries | `_data/home.yml` |
-| Top navigation labels, order and links | `_data/portal_navigation.yml` |
-| Author, email, footer links and sidebar resources | `_data/portal_footer.yml` |
-| Homepage section order | `index.html` |
-| Header or footer markup | `_includes/emulators/header.html`, `footer.html` |
-| Card structure used by every project | `_includes/emulators/project.html` |
-| Colors, spacing, cards and responsive layout | `css/emulators.css` |
-| Palette names, swatches and color values | `_data/portal_themes.yml` |
-| Project overview, downloads and videos | Each project's `index.html` |
-| Chinese copy | `_data/zh.json` |
-| Public domain and deployment subpath | `_config.yml` |
+| 首页标题、简介、项目图片和卡片内容 | `_data/home.yml` |
+| 首页区域顺序 | `index.html` |
+| 全站公共外壳 | `_layouts/default.html` |
+| 项目详情区排列 | `_includes/project-page.html` |
+| 某个项目的介绍、资料、视频 | 对应项目的 `index.html` |
+| Logo 和导航的结构 | `_includes/header.html` |
+| 导航名称与链接 | `_data/navigation.yml` |
+| 页尾作者、邮箱和资源 | `_data/footer.yml` |
+| 颜色 | `_data/themes.yml` |
+| 字号、间距、边框、手机布局 | `css/main.css` |
+| 中文文字 | `_data/zh.json` |
 
-Keep English as the source language. If English copy changes, update the matching
-key in `_data/zh.json`. The footer language choice lasts for the current browser
-tab. Code samples, protocol names and image contents keep their original form.
+页面、组件、CSS 和主要脚本区块带有中文源码注释。Liquid 注释
+`{% comment %} ... {% endcomment %}` 构建时会被移除，不显示在网页里。
 
-Use includes for reusable markup, `_data` for structured shared content, and
-layouts for the page shell. Page-specific prose belongs in the page itself.
-Use `relative_url` for local links and media paths so `baseurl` works.
+## 新增项目
 
-## Add a project or resource
+1. 复制一个现有项目目录，修改顶部的 `project`、`title`、`category`、
+   `description`、`repository`，并修改下方概览正文。
+2. 在 `_data/home.yml` 的 `projects` 中添加卡片数据。
+3. 在 `_data/navigation.yml` 中添加导航；`key` 与项目的 `project` 一致。
+4. 在 `_data/footer.yml` 添加页尾项目链接，必要时补充 `_data/zh.json`。
+5. 在 `scripts/check-site.cjs` 的 `pages` 列表中加入新页面，以继续检查全部生成页面。
 
-1. Create `project-name/index.html` with `layout: emulator`, `portal: true`, a
-   unique `project` key, `title`, `category` and `description` in front matter.
-   Write its overview below the closing `---`.
-2. Add its card to `_data/home.yml` under `projects`; copy an existing entry.
-3. Add the navigation entry to `_data/portal_navigation.yml` using the same
-   `project` key as its `key`. Add its footer link to `_data/portal_footer.yml`.
-4. Add translations to `_data/zh.json` and place preview images in `images/`.
+`resources` 每项包含 `type`、`title`、`description`、`url`。
+`url: null` 表示资料尚未提供，页面显示 Coming soon。
 
-Project front matter accepts `repository`, `resources` and `videos`. Copy an
-existing project's `index.html` for the complete format. A resource with
-`url: null` displays "Coming soon". Videos use `title`, `description`, and either
-`url` for an external video or `src`, optional `webm`, and optional `poster` for
-a local video. No video entries displays the existing availability message.
+`videos` 每项包含 `title`、`description`，并选择以下一种方式：
 
-The satellite illustration is conceptual artwork. Its project documentation,
-repository and video links are still awaiting actual materials.
+- 本地视频：`src`，以及可选的 `webm`、`poster`。
+- 外部视频：`url`。
 
-## Older detail pages
+没有视频时使用 `videos: []`。未发布的卫星资料继续使用占位数据，
+卫星卡片图片是概念示意图。
 
-`why.html`, `how.html`, `capabilities.html`, `cases.html`, `bsday.html` and
-`404.html` use the older `default` / `page` layouts. They remain available;
-the Internet project links to some of them.
+## 配色、语言与资源
 
-Their header/footer are `_includes/header.html` and `_includes/footer.html`.
-Their content uses `_includes/sections/`, `_data/site_content.yml` and
-`_data/navigation.yml`. Their five-color theme selector uses `_data/themes.yml`,
-`css/themes.css`, `css/theme-picker.css` and `js/theme.js`.
+- 配色保存到 localStorage 的 `seed-portal-theme`，跨页面和刷新保持。
+- 语言保存到 sessionStorage 的 `seed-review-language`，默认英文。
+- 修改英文文案时，同步修改 `_data/zh.json` 中对应的英文键名。
+- 图片内部的文字、视频内容和协议名称不会自动翻译。
+- 本地链接和图片地址使用 `relative_url`，支持部署到子路径。
+- 有 Liquid 的 CSS 文件显式声明 `layout: null`，防止套入页面外壳。
 
-The current homepage and three project pages use `_includes/emulators/` and
-offer four palettes in the navigation bar. Their choice is stored in
-`seed-portal-theme` in localStorage, separately from the older detail-page
-themes. Add a palette by copying a complete entry in `_data/portal_themes.yml`;
-the buttons and CSS are generated from that list. Keep IDs unique and add
-translated names to `_data/zh.json`. The first entry is the default.
-To edit those pages, start with the files in the table
-above. Some base styles and scripts are shared between both layout families.
+## 已清理的旧版内容
 
-## GitHub Pages
+移除了旧版 `why.html`、`how.html`、`capabilities.html`、`cases.html`、
+`bsday.html`，以及只供这些页面使用的布局、组件、脚本、主题和重复封面。
+互联网项目页不再链接这些旧地址，资料区保留官方文档与演示入口。
+旧地址不再生成，访问时由 404 处理。历史内容可从 Git 历史恢复。
 
-In **Settings -> Pages**, choose **GitHub Actions**. The workflow at
-`.github/workflows/static.yml` builds the Jekyll site and publishes `_site/`
-on pushes to `master` or manual dispatch. Pull requests targeting `master`
-build without deploying. A push to `test` does not trigger this workflow.
+## 构建检查与发布
 
-The configured public URL is https://gandlfst.github.io. Update `url` and
-`baseurl` in `_config.yml` before publishing elsewhere. Dependencies are locked
-in `Gemfile.lock`; after changing gems, run `bundle install` and commit the
-updated lockfile together with `Gemfile`.
+```sh
+bundle exec jekyll build
+node scripts/check-site.cjs
+```
+
+检查器也接受构建目录和部署子路径，例如：
+
+```sh
+bundle exec jekyll build --baseurl /preview --destination _site-preview
+node scripts/check-site.cjs _site-preview /preview
+```
+
+子路径验证请优先使用仓库外的临时目录，避免额外输出被后续构建复制。
+
+GitHub Pages 使用 `.github/workflows/static.yml`。推送 `master` 或手动触发
+会构建并发布；面向 `master` 的 PR 只构建。推送 `test` 不自动部署。
+当前域名在 `_config.yml` 中配置为 https://gandlfst.github.io。
