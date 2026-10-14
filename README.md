@@ -174,6 +174,26 @@ node scripts/check-site.cjs _site-preview /preview
 
 子路径验证请优先使用仓库外的临时目录，避免额外输出被后续构建复制。
 
-GitHub Pages 使用 `.github/workflows/static.yml`。推送 `master` 或手动触发
-会构建并发布；面向 `master` 的 PR 只构建。推送 `test` 不自动部署。
-当前域名在 `_config.yml` 中配置为 https://gandlfst.github.io。
+正式站点为 https://www.seedemulator.org，发布仓库为
+`seed-labs/seedemu-website`。`_config.yml` 的 `url` 与根目录 `CNAME`
+均使用正式域名，`baseurl` 保持为空。本地预览命令不变。
+
+GitHub Pages 使用 `.github/workflows/static.yml`：
+
+- 面向 `main` 的 PR：构建并检查页面、链接和资源，不发布。
+- 合并或推送到正式仓库的 `main`：检查通过后发布 `_site/`。
+- 手动运行：工作流可用的分支都可检查；仅正式仓库的 `main` 可以发布。
+- 推送 `test` 或 `development` 不自动发布；已有 PR 的新提交会重新检查。
+- Fork 仓库不会通过此工作流部署正式站点。
+
+仓库管理员需在合并前确认以下设置（这些设置不能通过 PR 修改）：
+
+1. `Settings → Pages → Build and deployment → Source` 选择 **GitHub Actions**，
+   使用本工作流中的 Jekyll 版本构建，避免同时沿用旧的分支发布方式。
+2. `Settings → Pages → Custom domain` 保持 `www.seedemulator.org`，
+   DNS 继续指向 `seed-labs.github.io`。自定义 Actions 发布时，`CNAME`
+   不会代替这里的域名设置。
+3. 如 `github-pages` 环境限制了部署分支，允许 `main` 发布。
+
+合并后在 Actions 中确认 `Build and deploy Jekyll to Pages` 的 `build` 和
+`deploy` 均成功，再访问正式域名检查。
